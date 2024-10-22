@@ -1,4 +1,5 @@
-from quiz_generator import HistoryQuizGenerator, MathQuizGenerator
+from math_quiz_generator import MyMathQuizGenerator
+from history_quiz_generator import MyHistoryQuizGenerator
 from schema import Quiz, Quizzes
 
 
@@ -15,26 +16,27 @@ math_test_case_1 = {}
 
 
 def history_question(history_test_case: dict) -> Quiz:
-    quiz_result = HistoryQuizGenerator().create_quiz(**history_test_case)
+    quiz_result = MyHistoryQuizGenerator().create_quiz(**history_test_case)
     print(f"\n\nQuiz: {quiz_result}\n\n")
 
 
 def math_question(math_test_case: dict) -> Quizzes:
-    quiz_result = MathQuizGenerator().create_quiz(**math_test_case)
+    quiz_result = MyMathQuizGenerator().create_quiz(**math_test_case)
     print(f"\n\nQuiz: {quiz_result}\n\n")
 
 
 def bonus_point(history_test_case: dict, math_test_case: dict, num_quizzes: int):
     kwargs = {"num_quizzes": num_quizzes}
-    quiz_result = HistoryQuizGenerator().create_quizzes(
+    quiz_result = MyHistoryQuizGenerator().create_quizzes(
         **{**history_test_case, **kwargs}
     )
     print(f"\n\nQuiz: {quiz_result}\n\n")
-    quiz_result = MathQuizGenerator().create_quizzes(**{**math_test_case, **kwargs})
+    quiz_result = MyMathQuizGenerator().create_quizzes(**{**math_test_case, **kwargs})
     print(f"\n\nQuiz: {quiz_result}\n\n")
 
 
 if __name__ == "__main__":
+    """
     for history_test_case in [
         history_test_case_1,
         history_test_case_2,
@@ -43,6 +45,6 @@ if __name__ == "__main__":
         history_question(history_test_case)
 
     math_question(math_test_case_1)
-
+    """
     # Bonus point is not necessary but a plus if you finish it.
-    # bonus_point(history_test_case_1, math_test_case_1, 3)
+    bonus_point(history_test_case_1, math_test_case_1, 3)
