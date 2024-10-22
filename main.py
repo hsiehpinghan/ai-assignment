@@ -36,7 +36,6 @@ def bonus_point(history_test_case: dict, math_test_case: dict, num_quizzes: int)
 
 
 if __name__ == "__main__":
-    """
     for history_test_case in [
         history_test_case_1,
         history_test_case_2,
@@ -45,6 +44,6 @@ if __name__ == "__main__":
         history_question(history_test_case)
 
     math_question(math_test_case_1)
-    """
+
     # Bonus point is not necessary but a plus if you finish it.
     bonus_point(history_test_case_1, math_test_case_1, 3)

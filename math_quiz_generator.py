@@ -96,6 +96,7 @@ class MyMathQuizGenerator(MathQuizGenerator):
 
     def _create_chain(self):
         chain = PromptTemplate.from_template(template=self.user_prompt) | self.model | self.parser
+        # If an error occurs, it returns "output_example" to ensure that, regardless of the input, the output is always in a valid format.
         chain_with_error_handling = chain.with_fallbacks(fallbacks=[self._error_handling | self.parser],
                                                          exception_key="exception")
         return chain_with_error_handling

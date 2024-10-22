@@ -18,7 +18,7 @@ class HistoryQuizGenerator(ABC):
 
     @abstractmethod
     def create_quizzes(
-        self, content: str, topics: List[str], num_quizzes: int
+        self, content: str, keywords: List[str], num_quizzes: int
     ) -> Quizzes:
         """
         Create multiple quizzes.

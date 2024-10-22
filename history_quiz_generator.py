@@ -105,11 +105,11 @@ class MyHistoryQuizGenerator(HistoryQuizGenerator):
         return quiz
 
     def create_quizzes(
-        self, content: str, topics: List[str], num_quizzes: int
+        self, content: str, keywords: List[str], num_quizzes: int
     ) -> Quizzes:
         sub_chain = self._create_chain()
         chain = RunnableParallel(**{f'quiz_{i}': sub_chain for i in range(num_quizzes)})
-        result = chain.invoke(self._get_chain_input(input={'content': content, 'keywords': topics}))
+        result = chain.invoke(self._get_chain_input(input={'content': content, 'keywords': keywords}))
         quizzes = Quizzes(quizzes=[result[k] for k in result])
         return quizzes
 
@@ -125,6 +125,7 @@ class MyHistoryQuizGenerator(HistoryQuizGenerator):
     def _create_chain(self):
         chain = ChatPromptTemplate.from_messages([("system", self.system_prompt),
                                                   ("user", self.user_prompt)]) | self.model | self.parser
+        # If an error occurs, it returns "output_example" to ensure that, regardless of the input, the output is always in a valid format.
         chain_with_error_handling = chain.with_fallbacks(fallbacks=[self._error_handling | self.parser],
                                                          exception_key="exception")
         return chain_with_error_handling
